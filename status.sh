@@ -22,7 +22,8 @@ fi # 结束
 echo "服务器状态：$(awk -F'=' '/^NAME=/ {print $2}' /etc/os-release | tr -d '"')" | tee "$MAIL_SUBJECT"
 
 # 获取硬件信息并设置为变量
-CPU_MODEL=$(cat /proc/cpuinfo | grep 'model name' | head -n 1 | cut -d: -f2 | sed 's/^[ \t]*//;s/[ \t]*$//') # 获取CPU信息
+CPU_MODEL=$(awk '/model name/ {for(i=4;i<=NF;i++) printf "%s ", $i; print ""}' /proc/cpuinfo | awk 'NR==1') # 获取CPU信息
+CPU_PROCESSOR=$(grep -c "processor" /proc/cpuinfo) # 获取CPU核心数
 MEM_TOTAL_GB=$(awk '/MemTotal/ {printf "%.0f",$2/1024/1024}' /proc/meminfo) # 获取内存大小的值保留整数
 RUNNING_TIME=$(uptime -p | sed 's/up //; s/days/天/; s/day/天/; s/hours/小时/; s/minutes/分钟/; s/,//') # 获取服务器运行时间
 CPU_USAGE=$(top -bn1 | grep Cpu | awk '{print $2}') # 获取CPU占用百分比
@@ -50,7 +51,7 @@ else
 fi
 
 # 输出
-echo "CPU: $CPU_MODEL" | tee "$MAIL_CONTENT"
+echo "CPU: $CPU_MODEL  核心: $CPU_PROCESSOR" | tee "$MAIL_CONTENT"
 echo "MEM: $MEM_TOTAL_GB GB" | tee -a "$MAIL_CONTENT"
 echo "服务器已经运行 $RUNNING_TIME 啦！" | tee -a "$MAIL_CONTENT"
 echo "当前:" | tee -a "$MAIL_CONTENT"
