@@ -8,8 +8,10 @@
 
 ```sh
 git clone https://github.com/qianxiao1234/Server_Status_Mail.git
+```
 
 请修改send_mail.py文件后再执行发送邮件的指令
 
 ```sh
 sh status.sh
+```
