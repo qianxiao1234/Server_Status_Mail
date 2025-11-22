@@ -1,0 +1,18 @@
+[mail]
+smtp_host = smtp.qq.com       # 邮箱SMTP服务器（QQ邮箱默认smtp.qq.com）
+smtp_port = 465               # SMTP端口（QQ邮箱默认465）
+user = your_email@qq.com      # 发件人邮箱
+pass = your_smtp_auth_code    # SMTP授权码（非邮箱密码，需在邮箱设置中获取）
+receivers = ["a@qq.com", "b@example.com"]  # 收件人列表
+sender_name = 服务器监控      # 发件人显示名称
+receiver_name = 管理员        # 收件人显示名称
+
+[path]
+mail_dir = ./status           # 邮件内容存储目录
+log_dir = ./log               # 日志存储目录
+
+[threshold]
+cpu_high = 80                 # CPU高负载阈值（%）
+cpu_medium = 50               # CPU中负载阈值（%）
+mem_high = 80                 # 内存高负载阈值（%）
+mem_medium = 50               # 内存中负载阈值（%）
