@@ -25,7 +25,7 @@ echo "服务器状态：$(awk -F'=' '/^NAME=/ {print $2}' /etc/os-release | tr -
 CPU_MODEL=$(awk '/model name/ {for(i=4;i<=NF;i++) printf "%s ", $i; print ""}' /proc/cpuinfo | awk 'NR==1') # 获取CPU信息
 CPU_PROCESSOR=$(grep -c "processor" /proc/cpuinfo) # 获取CPU核心数
 MEM_TOTAL_GB=$(awk '/MemTotal/ {printf "%.0f",$2/1024/1024}' /proc/meminfo) # 获取内存大小的值保留整数
-RUNNING_TIME=$(uptime -p | sed 's/up //; s/days/天/; s/day/天/; s/hours/小时/; s/minutes/分钟/; s/,//') # 获取服务器运行时间
+RUNNING_TIME=$(uptime -p | sed 's/up //; s/weeks/周/;s/week/周/; s/days/天/; s/day/天/; s/hours/小时/; s/minutes/分钟/;') # 获取服务器运行时间
 CPU_USAGE=$(top -bn1 | grep Cpu | awk '{print $2}') # 获取CPU占用百分比
 MEM_USAGE=$(free | awk 'NR==2 {printf "%.2f", $3/$2 * 100}') # 获取内存占用百分比
 
